@@ -1,0 +1,91 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uilds/
+[Bb]uild
+[Ll]ogs/
+[Uu]serSettings/
+sysinfo.txt
+*.stackdump
+/Assets/AssetStoreTools*
+*.apk
+*.unitypackage
+ProjectSettings/Packages/com.unity.probuilder*
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xported[Oo]bj/
+.vs/
+/*.vsconfig
+/*.userprefs
+/*.csproj
+/*.pidb
+/*.suo
+/*.sln*
+/*.user
+/*.unityproj
+/*.booproj
+.consulo/
+/*.tmp
+/*.svd
+
+# Unity3D generated meta files
+*.pidb.meta
+
+#SteamVR Manifest
+*.vrmanifest
+
+
+# ===================================== #
+# Unity3D Generated File On Crash Reports #
+# ===================================== #
+sysinfo.txt
+.vs/Cublitz/v15/Server/sqlite3/storage.ide,.vs/Cublitz/v15/Server/sqlite3/db.lock
+.vs/Cublitz/v15/Server/sqlite3/storage.ide
+.vs/Cublitz/v15/Server/sqlite3/db.lock
+.collabignore
+.vs/Cublitz/v15/Server/sqlite3/storage.ide-wal
+.vs/Cublitz/v15/Server/sqlite3/storage.ide-shm
+*.ide-wal
+*.ide-shm
+*.ide
+*.lock
+
+# ===================================== #
+# Common IntelliJ Platform excludes #
+# ===================================== #
+
+.idea/
+*.suo
+*.user
+.vs/
+[Bb]in/
+[Oo]bj/
+_UpgradeReport_Files/
+
+
+
+# ===================================== #
+# Houdini Generated Files #
+# ===================================== #
+*.env
+*.env.meta
+
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+[Tt]humbs.db
+[Dd]esktop.ini
+Corridor/Library/ShaderCache/
+Corridor/Library/metadata/
