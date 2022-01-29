@@ -1,5 +1,5 @@
 ///
-///
+///Manages all in game input
 ///
 
 using UnityEngine;
@@ -15,10 +15,10 @@ public class InputManager : MonoBehaviour
     private Vector3 touchPosEnd;
 
 
+    public Aimer aimerScript;
 
 
-
-    void Update()
+    private void Update()
     {
         MobileControls();
         PCControls();
@@ -30,18 +30,25 @@ public class InputManager : MonoBehaviour
     #region Input
     private void MobileControls()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && Input.touchCount > 0) //assures you're not currently selecting any UI
+        if (Input.touchCount < 1)
+            return;
+
+        if (!EventSystem.current.IsPointerOverGameObject()) //assures you're not currently selecting any UI
         {
             touchPos = Input.GetTouch(0).position;
+            aimerScript.PowerControl(touchPos);
+            aimerScript.RotateAimer(touchPos);
+
 
             if (Input.GetTouch(0).phase == TouchPhase.Began) //touch something
             {
-                touchPosStart = touchPos;
+                aimerScript.SetStartPos(touchPos);
             }
         }
-        else if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        
+        if(Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            touchPosEnd = Input.GetTouch(0).position;
+            aimerScript.LaunchMissile();
         }
 
     }
@@ -53,18 +60,20 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                touchPosStart = Input.mousePosition;
+                aimerScript.SetStartPos(Input.mousePosition);
             }
 
             if (Input.GetMouseButton(0))
             {
                 touchPos = Input.mousePosition;
+                aimerScript.PowerControl(touchPos);
+                aimerScript.RotateAimer(touchPos);
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            touchPosEnd = Input.mousePosition;
+            aimerScript.LaunchMissile();
         }
     }
     #endregion

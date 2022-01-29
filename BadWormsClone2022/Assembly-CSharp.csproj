@@ -54,6 +54,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Aimer.cs" />
+    <Compile Include="Assets\Scripts\OldAlbertoStuff.cs" />
+    <Compile Include="Assets\Scripts\MissileController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
