@@ -21,7 +21,7 @@ public class MissileController : MonoBehaviour
 
     private void Update()
     {
-        if (!landed)
+        if (!landed && !Input.GetMouseButton(0))
             gravScript.Attract();
 
     }

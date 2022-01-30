@@ -31,19 +31,16 @@ public class BeaconManualController : MonoBehaviour
             if (hit.transform.gameObject.CompareTag("Planet"))
             {
                 noseDive = true;
-                Debug.Log("hti planet");
 
             }
             else
             {
                 noseDive = false;
-                Debug.Log("hit not planet");
             }
         }
         else
         {
             noseDive = false;
-            Debug.Log("hit nothing");
         }
 
 
@@ -63,26 +60,29 @@ public class BeaconManualController : MonoBehaviour
     {
         if (!moving)
             return;
-
+        Debug.Log(GlobalVariables.Instance.currentBeacon.rb.velocity);
 
         Vector3 targetRot;
         if (noseDive)
         {
-            GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.up);
-            targetRot = (GlobalVariables.Instance.worldCenter - GlobalVariables.Instance.currentBeacon.transform.position).normalized;
+            GlobalVariables.Instance.currentBeacon.rb.AddForce((GlobalVariables.Instance.worldCenter - GlobalVariables.Instance.currentBeacon.transform.position).normalized * moveSpeed, ForceMode.VelocityChange);
+            //GlobalVariables.Instance.currentBeacon.rb.velocity = (GlobalVariables.Instance.worldCenter - transform.position).normalized * moveSpeed;
+            //targetRot = (GlobalVariables.Instance.worldCenter - GlobalVariables.Instance.currentBeacon.modelRotator.position).normalized;
         }
         else
         {
-            GlobalVariables.Instance.currentBeacon.rb.AddForce(-GlobalVariables.Instance.currentBeacon.transform.up);
-            targetRot = (GlobalVariables.Instance.currentBeacon.transform.position - GlobalVariables.Instance.worldCenter).normalized;
+            //GlobalVariables.Instance.currentBeacon.rb.velocity = -(GlobalVariables.Instance.worldCenter - transform.position).normalized * moveSpeed;
+
+            GlobalVariables.Instance.currentBeacon.rb.AddForce(-(GlobalVariables.Instance.worldCenter - GlobalVariables.Instance.currentBeacon.transform.position).normalized * moveSpeed, ForceMode.VelocityChange);
+            //targetRot = (GlobalVariables.Instance.currentBeacon.modelRotator.position - GlobalVariables.Instance.worldCenter).normalized;
         }
 
-
+        GlobalVariables.Instance.currentBeacon.transform.rotation = Quaternion.LookRotation(GlobalVariables.Instance.currentBeacon.rb.velocity);
         //GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.up);
         //GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.forward * moveSpeed);
 
-        Quaternion targetRotation = Quaternion.FromToRotation(GlobalVariables.Instance.currentBeacon.modelRotator.forward, targetRot) * GlobalVariables.Instance.currentBeacon.modelRotator.rotation;
-        GlobalVariables.Instance.currentBeacon.modelRotator.rotation = Quaternion.Slerp(GlobalVariables.Instance.currentBeacon.modelRotator.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        //Quaternion targetRotation = Quaternion.FromToRotation(GlobalVariables.Instance.currentBeacon.modelRotator.forward, targetRot) * GlobalVariables.Instance.currentBeacon.modelRotator.rotation;
+        //GlobalVariables.Instance.currentBeacon.modelRotator.rotation = Quaternion.Slerp(GlobalVariables.Instance.currentBeacon.modelRotator.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     public void StopMoving()
