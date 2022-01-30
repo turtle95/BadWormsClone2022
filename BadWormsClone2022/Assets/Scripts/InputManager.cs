@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 
 
-public class InputManager : MonoBehaviour
+public class InputManager : GenericSingletonClass<InputManager>
 {
     private Vector3 touchPos;
     private Vector3 touchPosStart;
@@ -16,6 +16,15 @@ public class InputManager : MonoBehaviour
 
 
     public Aimer aimerScript;
+    public BeaconManualController beaconScript;
+
+    public enum ControlState
+    {
+        Aiming,
+        Flying,
+        Moving
+    }
+    public ControlState currentState = ControlState.Aiming;
 
 
     private void Update()
@@ -24,7 +33,10 @@ public class InputManager : MonoBehaviour
         PCControls();
     }
 
-
+    public void SwitchState(ControlState newState)
+    {
+        currentState = newState;
+    }
 
 
     #region Input
@@ -36,19 +48,52 @@ public class InputManager : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject()) //assures you're not currently selecting any UI
         {
             touchPos = Input.GetTouch(0).position;
-            aimerScript.PowerControl(touchPos);
-            aimerScript.RotateAimer(touchPos);
+
+            switch (currentState)
+            {
+                case ControlState.Aiming:
+                    aimerScript.PowerControl(touchPos);
+                    aimerScript.RotateAimer(touchPos);
+                    break;
+                case ControlState.Flying:
+                    break;
+                case ControlState.Moving:
+                    break;
+            }
+
+
+
 
 
             if (Input.GetTouch(0).phase == TouchPhase.Began) //touch something
             {
-                aimerScript.SetStartPos(touchPos);
+                switch (currentState)
+                {
+                    case ControlState.Aiming:
+                        aimerScript.SetStartPos(touchPos);
+                        break;
+                    case ControlState.Flying:
+                        beaconScript.CheckForPlanet(touchPos);
+                        break;
+                    case ControlState.Moving:
+                        break;
+                }
             }
         }
         
         if(Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            aimerScript.LaunchMissile();
+            switch (currentState)
+            {
+                case ControlState.Aiming:
+                    aimerScript.LaunchMissile();
+                    break;
+                case ControlState.Flying:
+                    beaconScript.StopMoving();
+                    break;
+                case ControlState.Moving:
+                    break;
+            }
         }
 
     }
@@ -61,19 +106,52 @@ public class InputManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 aimerScript.SetStartPos(Input.mousePosition);
+
+                switch (currentState)
+                {
+                    case ControlState.Aiming:
+                        aimerScript.SetStartPos(touchPos);
+                        break;
+                    case ControlState.Flying:
+                        beaconScript.CheckForPlanet(touchPos);
+                        break;
+                    case ControlState.Moving:
+                        break;
+                }
             }
 
             if (Input.GetMouseButton(0))
             {
                 touchPos = Input.mousePosition;
-                aimerScript.PowerControl(touchPos);
-                aimerScript.RotateAimer(touchPos);
+
+                switch (currentState)
+                {
+                    case ControlState.Aiming:
+                        aimerScript.PowerControl(touchPos);
+                        aimerScript.RotateAimer(touchPos);
+                        break;
+                    case ControlState.Flying:
+                        break;
+                    case ControlState.Moving:
+                        break;
+                }
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            aimerScript.LaunchMissile();
+
+            switch (currentState)
+            {
+                case ControlState.Aiming:
+                    aimerScript.LaunchMissile();
+                    break;
+                case ControlState.Flying:
+                    beaconScript.StopMoving();
+                    break;
+                case ControlState.Moving:
+                    break;
+            }
         }
     }
     #endregion

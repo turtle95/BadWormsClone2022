@@ -39,6 +39,8 @@ public class Aimer : MonoBehaviour
         currentMissile = Instantiate(missile, transform.position, transform.rotation).GetComponent<MissileController>();
         currentMissile.speed *= power;
         power = minPower;
+        GlobalVariables.Instance.currentBeacon = currentMissile;
+        InputManager.Instance.SwitchState(InputManager.ControlState.Flying);
     }
 
     public void RotateAimer(Vector3 inputPos)

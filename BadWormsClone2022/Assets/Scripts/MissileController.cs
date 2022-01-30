@@ -11,6 +11,8 @@ public class MissileController : MonoBehaviour
     private bool landed = false;
     public ApplyGravity gravScript;
 
+    public Transform modelRotator;
+
     private void Start()
     {
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
@@ -32,10 +34,10 @@ public class MissileController : MonoBehaviour
 
     private void MissileLanded()
     {
+        InputManager.Instance.SwitchState(InputManager.ControlState.Moving);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
         //call laser
         rb.constraints = RigidbodyConstraints.FreezeAll;
         landed = true;
-        Debug.Log("landed");
     }
 }
