@@ -63,7 +63,10 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
                 c.attachedRigidbody.AddExplosionForce(exploadforce, GlobalVariables.Instance.worldCenter, exloadRad);
             }
 
-            
+            if (c.GetComponent<Enemy>())
+            {
+                c.GetComponent<Enemy>().KillMe();
+            }
         }
     }
 
