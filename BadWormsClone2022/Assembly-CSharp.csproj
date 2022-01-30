@@ -53,19 +53,20 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GenericSingletonClass.cs" />
     <Compile Include="Assets\Scripts\MissileController.cs" />
+    <Compile Include="Assets\BreakableAsteroids\Scripts\ExampleFracture.cs" />
+    <Compile Include="Assets\Scripts\BeaconManualController.cs" />
+    <Compile Include="Assets\Scripts\ApplyGravity.cs" />
+    <Compile Include="Assets\BreakableAsteroids\Scripts\Fracture.cs" />
+    <Compile Include="Assets\Scripts\GlobalVariables.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Aimer.cs" />
-    <Compile Include="Assets\Scripts\ApplyGravity.cs" />
-    <Compile Include="Assets\Scripts\GlobalVariables.cs" />
-    <Compile Include="Assets\Scripts\GenericSingletonClass.cs" />
     <Compile Include="Assets\Scripts\KillAfterTime.cs" />
-    <Compile Include="Assets\Scripts\BeaconManualController.cs" />
-    <Compile Include="Assets\Scripts\PlayerMover.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
-    <Compile Include="Assets\BreakableAsteroids\Scripts\ExampleFracture.cs" />
-    <Compile Include="Assets\BreakableAsteroids\Scripts\Fracture.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
+    <Compile Include="Assets\Scripts\PlayerMover.cs" />
+    <Compile Include="Assets\Scripts\LaserJunk.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BreakableAsteroids\Readme.txt" />
