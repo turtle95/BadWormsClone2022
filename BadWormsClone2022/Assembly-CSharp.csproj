@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\ApplyGravity.cs" />
     <Compile Include="Assets\Scripts\GlobalVariables.cs" />
     <Compile Include="Assets\Scripts\GenericSingletonClass.cs" />
+    <Compile Include="Assets\Scripts\KillAfterTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

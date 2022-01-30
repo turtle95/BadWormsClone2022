@@ -11,7 +11,7 @@ public class ApplyGravity : MonoBehaviour
 {
 	private Rigidbody rb;
 
-
+	public float planetRotationSpeed = 50;
 
 
 	private void Start()
@@ -20,10 +20,6 @@ public class ApplyGravity : MonoBehaviour
 
 	}
 
-    private void Update()
-    {
-		Attract();
-    }
 
 
     //calculates and applies planet based gravity
@@ -34,6 +30,6 @@ public class ApplyGravity : MonoBehaviour
 		rb.AddForce(gravityUp * GlobalVariables.Instance.gravityForce);
 
 		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, gravityUp) * transform.rotation;
-		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 50 * Time.deltaTime);
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, planetRotationSpeed * Time.deltaTime);
 	}
 }
