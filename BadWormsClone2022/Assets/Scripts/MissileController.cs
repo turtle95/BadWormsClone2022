@@ -34,13 +34,12 @@ public class MissileController : MonoBehaviour
 
     private void MissileLanded()
     {
-        InputManager.Instance.SwitchState(InputManager.ControlState.Moving);
         Instantiate(hitVFX, transform.position, Quaternion.identity);
         //call laser
         rb.constraints = RigidbodyConstraints.FreezeAll;
         landed = true;
 
         LaserJunk.Instance.OnLaserCalled(transform.position);
-        Destroy(this.gameObject);
+
     }
 }
