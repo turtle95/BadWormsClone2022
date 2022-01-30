@@ -56,6 +56,9 @@
     <Compile Include="Assets\Scripts\MissileController.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Aimer.cs" />
+    <Compile Include="Assets\Scripts\ApplyGravity.cs" />
+    <Compile Include="Assets\Scripts\GlobalVariables.cs" />
+    <Compile Include="Assets\Scripts\GenericSingletonClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
