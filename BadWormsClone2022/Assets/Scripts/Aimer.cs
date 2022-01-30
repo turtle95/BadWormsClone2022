@@ -13,7 +13,7 @@ public class Aimer : MonoBehaviour
     Vector3 startPos;
     private float power = 1f;
     public float minPower = 1f;
-
+    public float maxPower = 100f;
     public GameObject missile;
 
 
@@ -27,6 +27,9 @@ public class Aimer : MonoBehaviour
         power = (currentPos - startPos).magnitude;
         if (power < minPower)
             power = minPower;
+
+        if (power > maxPower)
+            power = maxPower;
     }
 
     public void LaunchMissile()
