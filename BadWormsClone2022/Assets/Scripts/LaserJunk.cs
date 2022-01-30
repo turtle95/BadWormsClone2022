@@ -57,13 +57,15 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
         Collider[] hitShit = Physics.OverlapSphere(hitPos, exploadScanRadius);
 
         Destroy(GlobalVariables.Instance.currentBeacon.gameObject);
+        GlobalVariables.Instance.currentBeacon = null;
 
-        foreach(Collider c in hitShit)
+        foreach (Collider c in hitShit)
         {
             if(c.attachedRigidbody != null)
             {
                 c.attachedRigidbody.isKinematic = false;
                 c.attachedRigidbody.AddExplosionForce(exploadforce, GlobalVariables.Instance.worldCenter, exloadRad);
+                c.gameObject.layer = 7;
             }
 
             if (c.GetComponent<Enemy>())
@@ -78,6 +80,8 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
     {
         yield return new WaitForSeconds(laserKillDelay);
         laser.SetActive(false);
+
+        InputManager.Instance.SwitchState(InputManager.ControlState.Aiming);
     }
 
 
