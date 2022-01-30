@@ -13,6 +13,11 @@ public class MissileController : MonoBehaviour
 
     public Transform modelRotator;
 
+
+    public AudioSource crash1;
+    public AudioSource crash2;
+    public AudioSource looper;
+
     private void Start()
     {
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
@@ -34,6 +39,12 @@ public class MissileController : MonoBehaviour
 
     private void MissileLanded()
     {
+
+        crash1.Play();
+        crash2.Play();
+        looper.Stop();
+
+
         Instantiate(hitVFX, transform.position, Quaternion.identity);
         //call laser
         rb.constraints = RigidbodyConstraints.FreezeAll;
