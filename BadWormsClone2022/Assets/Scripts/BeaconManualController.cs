@@ -23,6 +23,8 @@ public class BeaconManualController : MonoBehaviour
         RaycastHit hit;
 
         moving = true;
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 5f);
+
 
         if (Physics.Raycast(ray, out hit, 1000, rayCastMask)) //touch actually reads, only do this if touch isn't a drag
         {
@@ -30,12 +32,21 @@ public class BeaconManualController : MonoBehaviour
             {
                 noseDive = true;
                 Debug.Log("hti planet");
+
             }
             else
+            {
                 noseDive = false;
+                Debug.Log("hit not planet");
+            }
         }
         else
+        {
             noseDive = false;
+            Debug.Log("hit nothing");
+        }
+
+
     }
 
     public void GrabMoveInput(float currentY)
@@ -57,18 +68,21 @@ public class BeaconManualController : MonoBehaviour
         Vector3 targetRot;
         if (noseDive)
         {
+            GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.up);
             targetRot = (GlobalVariables.Instance.worldCenter - GlobalVariables.Instance.currentBeacon.transform.position).normalized;
         }
         else
         {
+            GlobalVariables.Instance.currentBeacon.rb.AddForce(-GlobalVariables.Instance.currentBeacon.transform.up);
             targetRot = (GlobalVariables.Instance.currentBeacon.transform.position - GlobalVariables.Instance.worldCenter).normalized;
         }
 
 
-        GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.forward * moveSpeed);
+        //GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.up);
+        //GlobalVariables.Instance.currentBeacon.rb.AddForce(GlobalVariables.Instance.currentBeacon.transform.forward * moveSpeed);
 
-        Quaternion targetRotation = Quaternion.FromToRotation(GlobalVariables.Instance.currentBeacon.transform.forward, targetRot) * GlobalVariables.Instance.currentBeacon.transform.rotation;
-        GlobalVariables.Instance.currentBeacon.transform.rotation = Quaternion.Slerp(GlobalVariables.Instance.currentBeacon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.FromToRotation(GlobalVariables.Instance.currentBeacon.modelRotator.forward, targetRot) * GlobalVariables.Instance.currentBeacon.modelRotator.rotation;
+        GlobalVariables.Instance.currentBeacon.modelRotator.rotation = Quaternion.Slerp(GlobalVariables.Instance.currentBeacon.modelRotator.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     public void StopMoving()

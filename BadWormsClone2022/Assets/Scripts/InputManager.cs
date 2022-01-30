@@ -113,7 +113,7 @@ public class InputManager : GenericSingletonClass<InputManager>
                         aimerScript.SetStartPos(touchPos);
                         break;
                     case ControlState.Flying:
-                        beaconScript.CheckForPlanet(touchPos);
+                        beaconScript.CheckForPlanet(Input.mousePosition);
                         break;
                     case ControlState.Moving:
                         break;
