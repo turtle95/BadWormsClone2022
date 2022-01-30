@@ -1,5 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+///
+///
+///
+
 using UnityEngine;
 
 public class Aimer : MonoBehaviour
@@ -9,8 +11,9 @@ public class Aimer : MonoBehaviour
     Vector3 aimTarget;
     Quaternion wantedRotation;
     Vector3 startPos;
-    private float power = 0.1f;
-
+    private float power = 1f;
+    public float minPower = 1f;
+    public float maxPower = 100f;
     public GameObject missile;
 
 
@@ -22,6 +25,11 @@ public class Aimer : MonoBehaviour
     public void PowerControl(Vector3 currentPos)
     {
         power = (currentPos - startPos).magnitude;
+        if (power < minPower)
+            power = minPower;
+
+        if (power > maxPower)
+            power = maxPower;
     }
 
     public void LaunchMissile()
@@ -30,16 +38,14 @@ public class Aimer : MonoBehaviour
         MissileController currentMissile;
         currentMissile = Instantiate(missile, transform.position, transform.rotation).GetComponent<MissileController>();
         currentMissile.speed *= power;
-        power = 0.1f;
+        power = minPower;
     }
 
     public void RotateAimer(Vector3 inputPos)
     {
         inputPos = Camera.main.ScreenToWorldPoint(new Vector3(inputPos.x, inputPos.y, cameraOffset));
-        Debug.Log("aim target " + aimTarget);
 
         aimTarget = new Vector3(transform.position.x, inputPos.y, 0);
-        Debug.Log("am target 2 " + aimTarget);
         wantedRotation = Quaternion.LookRotation(inputPos - transform.position);
         //transform.LookAt(inputPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, rotSpeed * Time.deltaTime);
