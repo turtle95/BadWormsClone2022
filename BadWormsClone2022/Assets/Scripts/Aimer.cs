@@ -17,6 +17,8 @@ public class Aimer : MonoBehaviour
     public GameObject missile;
 
 
+    public AudioSource fireMissle;
+
     public void SetStartPos(Vector3 pos)
     {
         startPos = pos;
@@ -41,6 +43,7 @@ public class Aimer : MonoBehaviour
         power = minPower;
         GlobalVariables.Instance.currentBeacon = currentMissile;
         InputManager.Instance.SwitchState(InputManager.ControlState.Flying);
+        fireMissle.Play();
     }
 
     public void RotateAimer(Vector3 inputPos)
