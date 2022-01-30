@@ -39,5 +39,7 @@ public class MissileController : MonoBehaviour
         //call laser
         rb.constraints = RigidbodyConstraints.FreezeAll;
         landed = true;
+
+        LaserJunk.Instance.OnLaserCalled(transform.position);
     }
 }
