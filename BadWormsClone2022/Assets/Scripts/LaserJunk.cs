@@ -55,6 +55,9 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
         laser.SetActive(true);
         Instantiate(exploadVFX, hitPos, Quaternion.identity);
         Collider[] hitShit = Physics.OverlapSphere(hitPos, exploadScanRadius);
+
+        Destroy(GlobalVariables.Instance.currentBeacon.gameObject);
+
         foreach(Collider c in hitShit)
         {
             if(c.attachedRigidbody != null)

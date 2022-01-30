@@ -41,6 +41,6 @@ public class MissileController : MonoBehaviour
         landed = true;
 
         LaserJunk.Instance.OnLaserCalled(transform.position);
-        Destroy(this.gameObject);
+
     }
 }
