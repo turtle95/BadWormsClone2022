@@ -36,6 +36,15 @@ public class InputManager : GenericSingletonClass<InputManager>
     public void SwitchState(ControlState newState)
     {
         currentState = newState;
+
+        if(newState == ControlState.Aiming)
+        {
+            AudioSwapper.Instance.SwapAudio(true);
+        }
+        else
+        {
+            AudioSwapper.Instance.SwapAudio(false);
+        }
     }
 
 
