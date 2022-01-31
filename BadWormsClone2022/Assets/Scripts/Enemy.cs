@@ -5,9 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject dieVFX;
+    public AudioSource scream;
+
+
     public void KillMe()
     {
-        GetComponent<AudioSource>().Play();
+        scream.Play();
+        scream.time = 0.9f;
         GameManager.Instance.EnemyKilled();
         Instantiate(dieVFX, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
