@@ -34,10 +34,10 @@ public class MissileController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Planet") && !landed)
-            MissileLanded();
+            MissileLanded(collision.contacts[0].point);
     }
 
-    private void MissileLanded()
+    private void MissileLanded(Vector3 colPoint)
     {
 
         crash1.Play();
@@ -50,7 +50,7 @@ public class MissileController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeAll;
         landed = true;
 
-        LaserJunk.Instance.OnLaserCalled(transform.position);
+        LaserJunk.Instance.OnLaserCalled(transform.position, colPoint);
 
     }
 }

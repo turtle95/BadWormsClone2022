@@ -31,7 +31,7 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
     public float laserspawnDelay = 2f;
     public float laserKillDelay = 8f;
 
-    public void OnLaserCalled(Vector3 pos)
+    public void OnLaserCalled(Vector3 pos, Vector3 colPoint)
     {
         //find angle from center to pos
         hitPos = pos;
@@ -45,15 +45,16 @@ public class LaserJunk : GenericSingletonClass<LaserJunk>
         laser.transform.position = laserSpawnPos;
 
         laser.transform.LookAt(GlobalVariables.Instance.worldCenter);
-        StartCoroutine(LaserOnDelay());
+        StartCoroutine(LaserOnDelay(dir, colPoint));
         StartCoroutine(LaserKillDelay());
     }
 
-    private IEnumerator LaserOnDelay()
+    private IEnumerator LaserOnDelay(Vector3 dpr, Vector3 colPoint)
     {
         yield return new WaitForSeconds(laserspawnDelay);
         laser.SetActive(true);
-        Instantiate(exploadVFX, hitPos, Quaternion.identity);
+        Quaternion targetBoomRot = Quaternion.LookRotation(Vector3.forward, (colPoint -GlobalVariables.Instance.worldCenter));
+        Instantiate(exploadVFX, colPoint, Quaternion.identity);
         Collider[] hitShit = Physics.OverlapSphere(hitPos, exploadScanRadius);
 
         Destroy(GlobalVariables.Instance.currentBeacon.gameObject);
